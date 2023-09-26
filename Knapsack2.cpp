@@ -102,6 +102,12 @@ void primeFactors(int n) {
 }
 //-----------------------------------------------------------------------------------------------------------------//
 
+int dp[101][100000];
+// dp[i][j] --> min weight of items of with value j from first i items
+// ans --> max j such that dp[n][j] <= W
+// dp[i][j] = min(w[i-1] + dp[i-1][j-w[i-1]], dp[i-1][j])
+//
+
 
 void solve() {
 	int n;
@@ -113,24 +119,20 @@ void solve() {
 		cin >> w[i] >> v[i];
 	}
 
-	// vvi dp(n + 1, vi (W + 1));
-	int dp[n + 1][W + 1];
 	for (int i = 0; i < n + 1; i++) {
-		memset(dp[i], 0, sizeof(dp[i]));
-	}
-	// dp[i][j] --> max value with first i items ans j capacity
-
-	for (int i = 1; i <= n; i++) {
-		for (int j = 1; j <= W; j++) {
-			dp[i][j] = dp[i - 1][j];
-			if (j >= w[i - 1])  dp[i][j] = max(dp[i][j], v[i - 1] +  dp[i - 1][j - w[i - 1]]);
-		}
+		fill(all(dp[i]), inf);
 	}
 
-	dbg(dp);
+	for (int i = 0; i <= n; i++) {
+		dp[i][0] = 0;
+	}
+	for (int i = 0; i <= 100000; i++) {
+		dp[0][i] = 0;
+	}
 
-	cout << dp[n][W] << nl;
-
+	for (int i = 1; i <= 100000; i++) {
+		f(n, i)
+	}
 
 
 }
